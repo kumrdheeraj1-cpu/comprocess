@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 60px 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1F2937;
+            margin-bottom: 40px;
+            letter-spacing: -0.025em;
+        }
+
+        .progress-display {
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: #3B82F6;
+            margin-bottom: 30px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .progress-container {
+            background: #F3F4F6;
+            border-radius: 50px;
+            height: 24px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3B82F6, #10B981);
+            border-radius: 50px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .percentage-label {
+            font-size: 1.1rem;
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        .links-section {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .link-group {
+            margin-bottom: 25px;
+        }
+
+        .link-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 10px;
+        }
+
+        .link-item {
+            display: block;
+            color: #3B82F6;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 0;
+            transition: color 0.2s ease;
+        }
+
+        .link-item:hover {
+            color: #1D4ED8;
+            text-decoration: underline;
+        }
+
+        .use-case-item {
+            margin-left: 20px;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 30px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .progress-display {
+                font-size: 2.5rem;
+            }
+            
+            .links-section {
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Progress Tracker</h1>
+        <div class="progress-display" id="progressDisplay"></div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="percentage-label" id="percentageLabel"></div>
+        
+        <div class="links-section">
+            <div class="link-group">
+                <div class="link-title">Process Video</div>
+                <a href="https://youtu.be/a2dYyUa9TQo" target="_blank" class="link-item">Watch Process Video</a>
+            </div>
+            
+            <div class="link-group">
+                <div class="link-title">Use Cases</div>
+                <a href="https://youtu.be/a2dYyUa9TQo" target="_blank" class="link-item use-case-item">Coursera</a>
+                <a href="https://youtu.be/a2dYyUa9TQo" target="_blank" class="link-item use-case-item">NPTEL</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Change this number to update the progress
+        const currentProgress = 123;
+        
+        // Maximum value (out of 250)
+        const maxProgress = 250;
+        
+        // Calculate percentage
+        const percentage = Math.round((currentProgress / maxProgress) * 100);
+        
+        // Update the display
+        document.getElementById('progressDisplay').textContent = `${currentProgress} / ${maxProgress}`;
+        document.getElementById('progressBar').style.width = `${percentage}%`;
+        document.getElementById('percentageLabel').textContent = `${percentage}% Complete`;
+        
+        // Update colors based on progress
+        const progressBar = document.getElementById('progressBar');
+        const progressDisplay = document.getElementById('progressDisplay');
+        
+        if (percentage <= 33) {
+            progressDisplay.style.color = '#EF4444'; // Red
+            progressBar.style.background = 'linear-gradient(90deg, #EF4444, #F87171)';
+        } else if (percentage <= 66) {
+            progressDisplay.style.color = '#F59E0B'; // Orange
+            progressBar.style.background = 'linear-gradient(90deg, #F59E0B, #FBBF24)';
+        } else {
+            progressDisplay.style.color = '#10B981'; // Green
+            progressBar.style.background = 'linear-gradient(90deg, #10B981, #34D399)';
+        }
+    </script>
+</body>
+</html>
